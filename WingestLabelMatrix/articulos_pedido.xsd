@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="articulos_pedido" targetNamespace="http://tempuri.org/articulos_pedido.xsd" xmlns:mstns="http://tempuri.org/articulos_pedido.xsd" xmlns="http://tempuri.org/articulos_pedido.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="articulos_pedido" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="articulos_pedido" msprop:Generator_UserDSName="articulos_pedido">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Articulos_Pedido" msprop:Generator_TableClassName="Articulos_PedidoDataTable" msprop:Generator_TableVarName="tableArticulos_Pedido" msprop:Generator_TablePropName="_Articulos_Pedido" msprop:Generator_RowDeletingName="Articulos_PedidoRowDeleting" msprop:Generator_RowChangingName="Articulos_PedidoRowChanging" msprop:Generator_RowEvHandlerName="Articulos_PedidoRowChangeEventHandler" msprop:Generator_RowDeletedName="Articulos_PedidoRowDeleted" msprop:Generator_UserTableName="Articulos_Pedido" msprop:Generator_RowChangedName="Articulos_PedidoRowChanged" msprop:Generator_RowEvArgName="Articulos_PedidoRowChangeEvent" msprop:Generator_RowClassName="Articulos_PedidoRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" minOccurs="0" />
+              <xs:element name="NUMPED" msprop:Generator_ColumnVarNameInTable="columnNUMPED" msprop:Generator_ColumnPropNameInRow="NUMPED" msprop:Generator_ColumnPropNameInTable="NUMPEDColumn" msprop:Generator_UserColumnName="NUMPED" type="xs:short" minOccurs="0" />
+              <xs:element name="CODCLI" msprop:Generator_ColumnVarNameInTable="columnCODCLI" msprop:Generator_ColumnPropNameInRow="CODCLI" msprop:Generator_ColumnPropNameInTable="CODCLIColumn" msprop:Generator_UserColumnName="CODCLI" type="xs:int" minOccurs="0" />
+              <xs:element name="DESCLI" msprop:Generator_ColumnVarNameInTable="columnDESCLI" msprop:Generator_ColumnPropNameInRow="DESCLI" msprop:Generator_ColumnPropNameInTable="DESCLIColumn" msprop:Generator_UserColumnName="DESCLI" type="xs:string" minOccurs="0" />
+              <xs:element name="CODART" msprop:Generator_ColumnVarNameInTable="columnCODART" msprop:Generator_ColumnPropNameInRow="CODART" msprop:Generator_ColumnPropNameInTable="CODARTColumn" msprop:Generator_UserColumnName="CODART" type="xs:string" minOccurs="0" />
+              <xs:element name="DESMOD" msprop:Generator_ColumnVarNameInTable="columnDESMOD" msprop:Generator_ColumnPropNameInRow="DESMOD" msprop:Generator_ColumnPropNameInTable="DESMODColumn" msprop:Generator_UserColumnName="DESMOD" type="xs:string" minOccurs="0" />
+              <xs:element name="FECPED" msprop:Generator_ColumnVarNameInTable="columnFECPED" msprop:Generator_ColumnPropNameInRow="FECPED" msprop:Generator_ColumnPropNameInTable="FECPEDColumn" msprop:Generator_UserColumnName="FECPED" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CANPED" msprop:Generator_ColumnVarNameInTable="columnCANPED" msprop:Generator_ColumnPropNameInRow="CANPED" msprop:Generator_ColumnPropNameInTable="CANPEDColumn" msprop:Generator_UserColumnName="CANPED" type="xs:short" minOccurs="0" />
+              <xs:element name="CODLOT" msprop:Generator_ColumnVarNameInTable="columnCODLOT" msprop:Generator_ColumnPropNameInRow="CODLOT" msprop:Generator_ColumnPropNameInTable="CODLOTColumn" msprop:Generator_UserColumnName="CODLOT" type="xs:string" minOccurs="0" />
+              <xs:element name="FEDCAD" msprop:Generator_ColumnVarNameInTable="columnFEDCAD" msprop:Generator_ColumnPropNameInRow="FEDCAD" msprop:Generator_ColumnPropNameInTable="FEDCADColumn" msprop:Generator_UserColumnName="FEDCAD" type="xs:string" minOccurs="0" />
+              <xs:element name="ESTADO" msprop:Generator_ColumnVarNameInTable="columnESTADO" msprop:Generator_ColumnPropNameInRow="ESTADO" msprop:Generator_ColumnPropNameInTable="ESTADOColumn" msprop:Generator_UserColumnName="ESTADO" type="xs:string" minOccurs="0" />
+              <xs:element name="CODESTADO" msprop:Generator_ColumnVarNameInTable="columnCODESTADO" msprop:Generator_ColumnPropNameInRow="CODESTADO" msprop:Generator_ColumnPropNameInTable="CODESTADOColumn" msprop:Generator_UserColumnName="CODESTADO" type="xs:short" default="0" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

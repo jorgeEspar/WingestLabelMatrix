@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "WingestLabelMatrix", "WingestLabelMatrix\WingestLabelMatrix.vbproj", "{8D0D91B0-C1E5-48D9-9ACC-603076F670A0}"
+EndProject
+Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "Setup1", "Setup1\Setup1.isproj", "{D3AAB7C4-2296-4733-A1BC-02B8CE51BE81}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CD_ROM|Any CPU = CD_ROM|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		DVD-5|Any CPU = DVD-5|Any CPU
+		Release|Any CPU = Release|Any CPU
+		SingleImage|Any CPU = SingleImage|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8D0D91B0-C1E5-48D9-9ACC-603076F670A0}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{8D0D91B0-C1E5-48D9-9ACC-603076F670A0}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{8D0D91B0-C1E5-48D9-9ACC-603076F670A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D0D91B0-C1E5-48D9-9ACC-603076F670A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D0D91B0-C1E5-48D9-9ACC-603076F670A0}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D0D91B0-C1E5-48D9-9ACC-603076F670A0}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{8D0D91B0-C1E5-48D9-9ACC-603076F670A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D0D91B0-C1E5-48D9-9ACC-603076F670A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D0D91B0-C1E5-48D9-9ACC-603076F670A0}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{8D0D91B0-C1E5-48D9-9ACC-603076F670A0}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{D3AAB7C4-2296-4733-A1BC-02B8CE51BE81}.CD_ROM|Any CPU.ActiveCfg = CD_ROM
+		{D3AAB7C4-2296-4733-A1BC-02B8CE51BE81}.CD_ROM|Any CPU.Build.0 = CD_ROM
+		{D3AAB7C4-2296-4733-A1BC-02B8CE51BE81}.Debug|Any CPU.ActiveCfg = DVD-5
+		{D3AAB7C4-2296-4733-A1BC-02B8CE51BE81}.Debug|Any CPU.Build.0 = DVD-5
+		{D3AAB7C4-2296-4733-A1BC-02B8CE51BE81}.DVD-5|Any CPU.ActiveCfg = DVD-5
+		{D3AAB7C4-2296-4733-A1BC-02B8CE51BE81}.DVD-5|Any CPU.Build.0 = DVD-5
+		{D3AAB7C4-2296-4733-A1BC-02B8CE51BE81}.Release|Any CPU.ActiveCfg = SingleImage
+		{D3AAB7C4-2296-4733-A1BC-02B8CE51BE81}.Release|Any CPU.Build.0 = SingleImage
+		{D3AAB7C4-2296-4733-A1BC-02B8CE51BE81}.SingleImage|Any CPU.ActiveCfg = SingleImage
+		{D3AAB7C4-2296-4733-A1BC-02B8CE51BE81}.SingleImage|Any CPU.Build.0 = SingleImage
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

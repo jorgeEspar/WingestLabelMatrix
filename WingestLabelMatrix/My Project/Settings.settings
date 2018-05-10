@@ -1,0 +1,74 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="NombreEmpresa" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ALBATROS-INFORMATICA</Value>
+    </Setting>
+    <Setting Name="Versionwingest" Type="System.String" Scope="User">
+      <Value Profile="(Default)">7</Value>
+    </Setting>
+    <Setting Name="ServidorSQLServerWingest" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="UserSQLServerWingest" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PwdSQLServerWingest" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PortSQLServerWingest" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1433</Value>
+    </Setting>
+    <Setting Name="DataBaseSQLServerWingest" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DIPLAN</Value>
+    </Setting>
+    <Setting Name="FirstInit" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="FormatFecha_SqlServer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">yyyy-dd-MM</Value>
+    </Setting>
+    <Setting Name="wgdemoConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=JESPARTERO\JORGEESP;Initial Catalog=wgdemo;User ID=sa;Password=sql_server&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=JESPARTERO\JORGEESP;Initial Catalog=wgdemo;User ID=sa;Password=sql_server</Value>
+    </Setting>
+    <Setting Name="FormatNumer_Importes_Excel" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#.##0,00</Value>
+    </Setting>
+    <Setting Name="FormatNumer_Cantidades_Excel" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#.##0</Value>
+    </Setting>
+    <Setting Name="PathEtiquetasLabelMatrix" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="FicheroAccessEtiquetas" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Canal" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PathEtiquetasLabelMatrixOriginal" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Ejercicio" Type="System.String" Scope="User">
+      <Value Profile="(Default)">2018</Value>
+    </Setting>
+    <Setting Name="PathProgramaLabelMatrix" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MostrarVentanaMSDos" Type="System.String" Scope="User">
+      <Value Profile="(Default)">N</Value>
+    </Setting>
+    <Setting Name="TiempoEsperaEntreEtiquetas" Type="System.String" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="CodArticulosLabelMatrix" Type="System.String" Scope="User">
+      <Value Profile="(Default)">48.</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

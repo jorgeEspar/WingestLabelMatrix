@@ -1,0 +1,22 @@
+615640626
+UPanelSelPortes
+
+UP_Filtros_Portes
+divAddPortes .panel-body
+
+btnPathProgramaLabelMatrix
+txtPathProgramaLabelMatrix
+
+cadena = config.AppSettings.Settings.Item("PathEtiquetasLabelMatrix").Value
+            If cadena.Substring(cadena.Length - 1) <> "\" Then cadena = cadena & "\"
+
+INSERT INTO etiquetas (fichero_etiqueta,lote,fecha_caducidad,num_etiquetas_print,impresion_ok) VALUES('B0442461','L016','01/01/2900',6,0)
+
+C:\Users\Administrador\Documents\Jorge\varios\Albatros\QPDF\je\B0442015.qdf
+
+3860 10
+3859 1
+3856 3
+3849 1
+3829 2
+
