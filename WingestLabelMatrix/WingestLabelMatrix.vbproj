@@ -99,10 +99,22 @@
     <Compile Include="articulos_pedido.vb">
       <DependentUpon>articulos_pedido.xsd</DependentUpon>
     </Compile>
+    <Compile Include="buscadores\Buscador_Articulos.Designer.vb">
+      <DependentUpon>Buscador_Articulos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="buscadores\Buscador_Articulos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="buscadores\Buscador_Clientes.Designer.vb">
       <DependentUpon>Buscador_Clientes.vb</DependentUpon>
     </Compile>
     <Compile Include="buscadores\Buscador_Clientes.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="buscadores\Buscador_Pedidos.Designer.vb">
+      <DependentUpon>Buscador_Pedidos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="buscadores\Buscador_Pedidos.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ComAccessWingest.vb" />
@@ -139,8 +151,14 @@
     <Compile Include="ObjComunes.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="buscadores\Buscador_Articulos.resx">
+      <DependentUpon>Buscador_Articulos.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="buscadores\Buscador_Clientes.resx">
       <DependentUpon>Buscador_Clientes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="buscadores\Buscador_Pedidos.resx">
+      <DependentUpon>Buscador_Pedidos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmConfiguracion.resx">
       <DependentUpon>FrmConfiguracion.vb</DependentUpon>

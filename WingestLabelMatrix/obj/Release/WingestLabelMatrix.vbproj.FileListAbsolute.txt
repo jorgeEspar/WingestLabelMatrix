@@ -37,4 +37,5 @@ D:\apps jorge\Albatros\WingestLabelMatrix\WingestLabelMatrix\obj\Release\Wingest
 D:\apps jorge\Albatros\WingestLabelMatrix\WingestLabelMatrix\obj\Release\WingestLabelMatrix.FrmInicio.resources
 D:\apps jorge\Albatros\WingestLabelMatrix\WingestLabelMatrix\obj\Release\WingestLabelMatrix.Resources.resources
 D:\apps jorge\Albatros\WingestLabelMatrix\WingestLabelMatrix\obj\Release\WingestLabelMatrix.vbproj.GenerateResource.Cache
-D:\apps jorge\Albatros\WingestLabelMatrix\WingestLabelMatrix\obj\Release\WingestLabelMatrix.vbprojResolveAssemblyReference.cache
+D:\apps jorge\Albatros\WingestLabelMatrix\WingestLabelMatrix\obj\Release\WingestLabelMatrix.Buscador_Articulos.resources
+D:\apps jorge\Albatros\WingestLabelMatrix\WingestLabelMatrix\obj\Release\WingestLabelMatrix.Buscador_Pedidos.resources

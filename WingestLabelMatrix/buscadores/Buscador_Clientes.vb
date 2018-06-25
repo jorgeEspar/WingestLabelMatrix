@@ -119,15 +119,11 @@ Public Class Buscador_Clientes
         If codigoSel = "" Then
             MsgBox("No ha indicado el registro que desea seleccionar.", MsgBoxStyle.Exclamation, "Error - Buscador Clientes")
         Else
-            Select Case tbxFormularioDestino.Text
-                Case Else
-                    If tbxNombreCampoCodigo_Destino.Text <> "" Then
-                        'FrmFiltros_Informe_1.Controls(tbxNombreCampoCodigo_Destino.Text).Text = codigoSel
-                    End If
-                    If tbxNombreCampoDescripcion_Destino.Text <> "" Then
-                        'FrmFiltros_Informe_1.Controls(tbxNombreCampoDescripcion_Destino.Text).Text = descripcionSel
-                    End If
-            End Select
+            FrmInicio.txtCodCliArt.Text = codigoSel
+            FrmInicio.txtNomcliArt.Text = descripcionSel
+
+            FrmInicio.Existe_Etiqueta()
+
             Me.Hide()
         End If
     End Sub
@@ -169,12 +165,10 @@ Public Class Buscador_Clientes
         codigoSel = DataGridBuscador.Rows(x).Cells(0).Value
         descripcionSel = DataGridBuscador.Rows(x).Cells(1).Value
 
-        If tbxNombreCampoCodigo_Destino.Text <> "" Then
-            'FrmFiltros_Informe_1.Controls(tbxNombreCampoCodigo_Destino.Text).Text = codigoSel
-        End If
-        If tbxNombreCampoDescripcion_Destino.Text <> "" Then
-            'FrmFiltros_Informe_1.Controls(tbxNombreCampoDescripcion_Destino.Text).Text = descripcionSel
-        End If
+        FrmInicio.txtCodCliArt.Text = codigoSel
+        FrmInicio.txtNomcliArt.Text = descripcionSel
+
+        FrmInicio.Existe_Etiqueta()
 
         Me.Hide()
     End Sub
@@ -199,14 +193,11 @@ Public Class Buscador_Clientes
             codigoSel = DataGridBuscador.Rows(x).Cells(0).Value
             descripcionSel = DataGridBuscador.Rows(x).Cells(1).Value
 
-            If tbxNombreCampoCodigo_Destino.Text <> "" Then
-                'FrmFiltros_Informe_1.Controls(tbxNombreCampoCodigo_Destino.Text).Text = codigoSel
-            End If
-            If tbxNombreCampoDescripcion_Destino.Text <> "" Then
-                'FrmFiltros_Informe_1.Controls(tbxNombreCampoDescripcion_Destino.Text).Text = descripcionSel
-            End If
+            FrmInicio.txtCodCliArt.Text = codigoSel
+            FrmInicio.txtNomcliArt.Text = descripcionSel
 
-            'Me.Hide()
+            FrmInicio.Existe_Etiqueta()
+            Me.Hide()
         End If
     End Sub
 #End Region

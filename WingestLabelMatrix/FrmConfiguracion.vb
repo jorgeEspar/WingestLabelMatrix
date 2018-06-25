@@ -360,12 +360,7 @@ Public Class FrmConfiguracion
             Case "CANALES"
                 dt = FrmInicio.obcomun.Selecciona_Canales()
 
-            Case "SERIES"
-                Dim valor As String
-                If ddlCanal.SelectedIndex > -1 Then
-                    valor = DirectCast(ddlCanal.Items(ddlCanal.SelectedIndex), System.Collections.Generic.KeyValuePair(Of String, String)).Key
-                    dt = FrmInicio.obcomun.Selecciona_Series_Desde(valor, tbxEjercicio.Text)
-                End If
+
         End Select
         If dt.Rows.Count > 0 Then
             With objeto

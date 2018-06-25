@@ -116,6 +116,8 @@ Public Class FrmInicio
                 Carga_Canales()
             End If
 
+            IniciaProceso_LMWPRINT()
+
             txtNumPed.Focus()
 
         Catch ex As Exception
@@ -225,6 +227,8 @@ Public Class FrmInicio
         If MessageBox.Show("¿ Desea SALIR del programa ?", "Salir del programa", MessageBoxButtons.YesNo) = DialogResult.No Then
             ' Cancel the Closing event from closing the form.
             e.Cancel = True
+        Else
+            FinalizaProceso_LMWPRINT()
         End If ' Call method to save file...
     End Sub 'Form1_Closing
 #Region "Tratamiento de errores"
@@ -287,6 +291,7 @@ Public Class FrmInicio
 #Region "OPCIONES DE MENÚ"
     Private Sub SalirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SalirToolStripMenuItem.Click
         If (MsgBox("¿ Desea salir del programa ?", MsgBoxStyle.YesNo, "Salir del programa")) = MsgBoxResult.Yes Then
+            FinalizaProceso_LMWPRINT()
             Application.Exit()
         End If
     End Sub
@@ -349,7 +354,7 @@ Public Class FrmInicio
         txtCodcli.Text = ""
         txtNomcli.Text = ""
 
-        BindingSource1.DataSource = ""
+        BindingSource1.DataSource = Nothing
         DataGridPedido.DataSource = BindingSource1
 
         If txtNumPed.Text.Trim() = "" Then
@@ -379,7 +384,7 @@ Public Class FrmInicio
                 ''dt = DT_Pedidos()
 
                 If dt.Rows.Count = 0 Then
-                    MsgBox("Nº de Pedido (" & txtNumPed.Text.Trim() & ") no encontrado en el Canal=" & can & " y Ejercicio=" & eje, MsgBoxStyle.Critical, "Pedido no encontrado")
+                    MsgBox("Nº de Pedido (" & txtNumPed.Text.Trim() & ") no encontrado en el Canal=" & can.Trim() & " y Ejercicio=" & eje & " y con artículos cuyo código empieza por " & FrmInicio.config.AppSettings.Settings.Item("CodArticulosLabelMatrix").Value, MsgBoxStyle.Critical, "Pedido no encontrado")
                 Else
                     Dim column As DataColumn = New DataColumn
                     column.DataType = System.Type.GetType("System.Int16")
@@ -442,8 +447,11 @@ Public Class FrmInicio
         End If
     End Sub
     Private Sub btnBuscadorPedido_Click(sender As Object, e As EventArgs) Handles btnBuscadorPedido.Click
-        BuscarPedido()
+        Buscador_Pedidos.tbxNombreCampoCodigo_Destino.Text = "txtNumPed"
+        Buscador_Pedidos.tbxNombreCampoDescripcion_Destino.Text = ""
+        Buscador_Pedidos.tbxFormularioDestino.Text = "Buscador_Pedidos"
 
+        Buscador_Pedidos.ShowDialog()
     End Sub
 
 #Region "Eventos DataGridPedido"
@@ -728,11 +736,22 @@ Public Class FrmInicio
 #End Region
 
     Private Sub btnBuscadorArticulo_Click(sender As Object, e As EventArgs) Handles btnBuscadorArticulo.Click
-        Busca_Articulo()
+        Buscador_Articulos.tbxNombreCampoCodigo_Destino.Text = "txtCodArt"
+        Buscador_Articulos.tbxNombreCampoDescripcion_Destino.Text = "txtDesArt"
+        Buscador_Articulos.tbxFormularioDestino.Text = "FrmInicio"
+        Buscador_Articulos.chkSoloArticulosBiolema.Checked = False
+
+        Buscador_Articulos.ShowDialog()
 
     End Sub
     Private Sub txtCodArt_TextChanged(sender As Object, e As EventArgs) Handles txtCodArt.TextChanged
-        'Busca_Articulo()
+        If txtCodArt.Text <> "" Then
+            Busca_Articulo()
+        Else
+            txtDesArt.Text = ""
+            txtLote.Text = ""
+            txtCantidad.Text = "1"
+        End If
     End Sub
 
     Private Sub Busca_Articulo()
@@ -801,7 +820,8 @@ Public Class FrmInicio
                 lote = DataGridPedido.Rows(i).Cells(7).Value
                 fecha_caducidad = DataGridPedido.Rows(i).Cells(8).Value
 
-                fichero_etiqueta = "B" & txtCodcli.Text.PadLeft(4, "0") & codart.PadLeft(3, "0")
+                fichero_etiqueta = "B" & txtCodcli.Text.Trim().PadLeft(4, "0") & codart.Trim().PadLeft(3, "0")
+                fichero_etiqueta = fichero_etiqueta.Trim()
 
                 cadena = config.AppSettings.Settings.Item("PathEtiquetasLabelMatrix").Value
                 If cadena.Substring(cadena.Length - 1) <> "\" Then cadena = cadena & "\"
@@ -925,12 +945,7 @@ Public Class FrmInicio
             Case "CANALES"
                 dt = obcomun.Selecciona_Canales()
 
-            Case "SERIES"
-                Dim valor As String
-                If ddlCanal.SelectedIndex > -1 Then
-                    valor = DirectCast(ddlCanal.Items(ddlCanal.SelectedIndex), System.Collections.Generic.KeyValuePair(Of String, String)).Key
-                    dt = obcomun.Selecciona_Series_Desde(valor, tbxEjercicio.Text)
-                End If
+
         End Select
         If dt.Rows.Count > 0 Then
             With objeto
@@ -1015,54 +1030,122 @@ Public Class FrmInicio
     Public Function ImprimeEtiqueta(ByVal fichero_qdf As String, ByVal cantidad As Integer) As String
         Dim msg As String = String.Empty
         Dim cadena As String
+        Dim numetiq As Integer
         Try
-            '***************************
-            '** crear fichero .bat
-            Dim ficherobat As String = Application.StartupPath & "\etiqueta.bat"
-            ' Borrar el fichero .bat
-            If File.Exists(ficherobat) Then File.Delete(ficherobat)
+            For numetiq = 1 To cantidad
+                '***************************
+                '** crear fichero .bat
+                Dim ficherobat As String = Application.StartupPath & "\etiqueta.bat"
+                ' Borrar el fichero .bat
+                If File.Exists(ficherobat) Then File.Delete(ficherobat)
 
-            Dim sb As New System.Text.StringBuilder
-            'sb.AppendLine("@echo off")
-            cadena = "cd /D """ & config.AppSettings.Settings.Item("PathProgramaLabelMatrix").Value & """"
-            'sb.AppendLine("cd ""C:\Program Files\LABEL MATRIX PowerPro Demo""")
-            sb.AppendLine(cadena)
-
-            cadena = config.AppSettings.Settings.Item("PathEtiquetasLabelMatrix").Value
-            If cadena.Substring(cadena.Length - 1) <> "\" Then cadena = cadena & "\"
-
-            If File.Exists(cadena & fichero_qdf) Then
-                cadena = "start Lmwprint.exe /L=" & cadena & fichero_qdf & " /C=" & cantidad.ToString() & " /N /Q"
+                Dim sb As New System.Text.StringBuilder
+                'sb.AppendLine("@echo off")
+                cadena = "cd /D """ & config.AppSettings.Settings.Item("PathProgramaLabelMatrix").Value & """"
+                'sb.AppendLine("cd ""C:\Program Files\LABEL MATRIX PowerPro Demo""")
                 sb.AppendLine(cadena)
-                'sb.AppendLine("start LMWPRINT.exe / L = C: \Users\informatica\Documents\jorge\_albatros-informatica\QPDF\je\b0524048.qdf /C=3 /N /Q")
 
-                IO.File.WriteAllText(ficherobat, sb.ToString())
+                cadena = config.AppSettings.Settings.Item("PathEtiquetasLabelMatrix").Value
+                If cadena.Substring(cadena.Length - 1) <> "\" Then cadena = cadena & "\"
 
-                'Process.Start("etiqueta.bat")
-                '******************************************************
-                Dim waitprocess As Long = 2000 '5 segundos en milisegundos
-                Dim proc As Process = New Process()
-                proc.StartInfo.FileName = ficherobat
-                'proc.StartInfo.Arguments = prg;
-                If config.AppSettings.Settings.Item("MostrarVentanaMSDos").Value = "S" Then
-                    proc.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+                If File.Exists(cadena & fichero_qdf) Then
+                    'cadena = "start Lmwprint.exe /L=" & cadena & fichero_qdf & " /C=" & cantidad.ToString() & " /N /Q"
+                    cadena = "start Lmwprint.exe /L=" & cadena & fichero_qdf & " /N" '/Q"
+                    sb.AppendLine(cadena)
+                    'sb.AppendLine("start LMWPRINT.exe / L = C: \Users\informatica\Documents\jorge\_albatros-informatica\QPDF\je\b0524048.qdf /C=3 /N /Q")
+
+                    IO.File.WriteAllText(ficherobat, sb.ToString())
+
+                    'Process.Start("etiqueta.bat")
+                    '******************************************************
+                    Dim waitprocess As Long = 1000 '5 segundos en milisegundos
+                    Dim proc As Process = New Process()
+                    proc.StartInfo.FileName = ficherobat
+                    'proc.StartInfo.Arguments = prg;
+                    If config.AppSettings.Settings.Item("MostrarVentanaMSDos").Value = "S" Then
+                        proc.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+                    Else
+                        proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+                    End If
+                    proc.StartInfo.ErrorDialog = True
+                    proc.StartInfo.WorkingDirectory = Application.StartupPath 'Path.GetDirectoryName(prg)
+                    proc.Start()
+                    proc.WaitForExit(waitprocess) 'período de tiempo que se debe esperar hasta que termine el proceso asociado o el proceso haya terminado
+                    '******************************************************
                 Else
-                    proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+                    msg = "El fichero " & cadena & fichero_qdf & " no se ha encontrado."
                 End If
-                proc.StartInfo.ErrorDialog = True
-                proc.StartInfo.WorkingDirectory = Application.StartupPath 'Path.GetDirectoryName(prg)
-                proc.Start()
-                proc.WaitForExit(waitprocess)
-                '******************************************************
-            Else
-                msg = "El fichero " & cadena & fichero_qdf & " no se ha encontrado."
-            End If
-
+            Next
         Catch ex As Exception
             msg = ex.Message.ToString
         End Try
         Return msg
     End Function
+
+    Private Sub IniciaProceso_LMWPRINT()
+        Dim msg As String = String.Empty
+        Dim cadena As String
+        Try
+            '***************************
+            '** crear fichero .bat
+            Dim ficherobat As String = Application.StartupPath & "\appaction.bat"
+            ' Borrar el fichero .bat
+            If File.Exists(ficherobat) Then File.Delete(ficherobat)
+
+            Dim sb As New System.Text.StringBuilder
+            cadena = "cd /D """ & config.AppSettings.Settings.Item("PathProgramaLabelMatrix").Value & """"
+            sb.AppendLine(cadena)
+
+            cadena = config.AppSettings.Settings.Item("PathEtiquetasLabelMatrix").Value
+            If cadena.Substring(cadena.Length - 1) <> "\" Then cadena = cadena & "\"
+            cadena = "start Lmwprint.exe /W"
+            sb.AppendLine(cadena)
+
+            IO.File.WriteAllText(ficherobat, sb.ToString())
+            Dim proc As Process = New Process()
+            proc.StartInfo.FileName = ficherobat
+            'proc.StartInfo.Arguments = prg;
+            proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+            proc.StartInfo.ErrorDialog = True
+            proc.StartInfo.WorkingDirectory = Application.StartupPath 'Path.GetDirectoryName(prg)
+            proc.Start()
+
+        Catch ex As Exception
+            msg = ex.Message.ToString
+        End Try
+    End Sub
+    Private Sub FinalizaProceso_LMWPRINT()
+        Dim msg As String = String.Empty
+        Dim cadena As String
+        Try
+            '***************************
+            '** crear fichero .bat
+            Dim ficherobat As String = Application.StartupPath & "\appaction.bat"
+            ' Borrar el fichero .bat
+            If File.Exists(ficherobat) Then File.Delete(ficherobat)
+
+            Dim sb As New System.Text.StringBuilder
+            cadena = "cd /D """ & config.AppSettings.Settings.Item("PathProgramaLabelMatrix").Value & """"
+            sb.AppendLine(cadena)
+
+            cadena = config.AppSettings.Settings.Item("PathEtiquetasLabelMatrix").Value
+            If cadena.Substring(cadena.Length - 1) <> "\" Then cadena = cadena & "\"
+            cadena = "start Lmwprint.exe /Q"
+            sb.AppendLine(cadena)
+
+            IO.File.WriteAllText(ficherobat, sb.ToString())
+            Dim proc As Process = New Process()
+            proc.StartInfo.FileName = ficherobat
+            'proc.StartInfo.Arguments = prg;
+            proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+            proc.StartInfo.ErrorDialog = True
+            proc.StartInfo.WorkingDirectory = Application.StartupPath 'Path.GetDirectoryName(prg)
+            proc.Start()
+
+        Catch ex As Exception
+            msg = ex.Message.ToString
+        End Try
+    End Sub
 
     Private Sub btnImprimirArticulo_Click(sender As Object, e As EventArgs) Handles btnImprimirArticulo.Click
         Dim msg As String
@@ -1160,9 +1243,14 @@ Public Class FrmInicio
 #End Region 'Opciones de menú
 
     Private Sub GuardaCambiosConfiguracion()
-        FrmInicio.config.AppSettings.Settings.Item("Canal").Value = ddlCanal.Items(ddlCanal.SelectedIndex).Value
-        FrmInicio.config.AppSettings.Settings.Item("Ejercicio").Value = tbxEjercicio.Text
-
+        If tbxEjercicio.Text <> "" Then
+            FrmInicio.config.AppSettings.Settings.Item("Ejercicio").Value = tbxEjercicio.Text
+        End If
+        If ddlCanal.Items.Count > 0 Then
+            If ddlCanal.SelectedIndex > -1 Then
+                FrmInicio.config.AppSettings.Settings.Item("Canal").Value = ddlCanal.Items(ddlCanal.SelectedIndex).Value
+            End If
+        End If
         FrmInicio.config.Save(ConfigurationSaveMode.Modified)
         ConfigurationManager.RefreshSection("appSettings")
     End Sub
@@ -1182,7 +1270,12 @@ Public Class FrmInicio
     End Sub
 
     Private Sub btnBuscadorCliente_Click(sender As Object, e As EventArgs) Handles btnBuscadorCliente.Click
-        Busca_Cliente()
+        Buscador_Clientes.tbxNombreCampoCodigo_Destino.Text = "txtCodCliArt"
+        Buscador_Clientes.tbxNombreCampoDescripcion_Destino.Text = "txtNomcliArt"
+        Buscador_Clientes.tbxFormularioDestino.Text = "FrmInicio"
+        Buscador_Clientes.chkSoloClientesBiolema.Checked = False
+
+        Buscador_Clientes.ShowDialog()
     End Sub
     Private Sub txtCodCliArt_KeyUp(sender As Object, e As KeyEventArgs) Handles txtCodCliArt.KeyUp
         If txtCodCliArt.Text <> "" Then
@@ -1216,7 +1309,7 @@ Public Class FrmInicio
         Existe_Etiqueta()
     End Sub
 
-    Private Sub Existe_Etiqueta()
+    Public Sub Existe_Etiqueta()
         Dim existe_access As Boolean = False
         Dim existe_vieja As Boolean = False
         Dim codart As String = txtCodArt.Text.Trim()
@@ -1259,4 +1352,13 @@ Public Class FrmInicio
         End If
 
     End Sub
+
+    Private Sub txtCodCliArt_TextChanged(sender As Object, e As EventArgs) Handles txtCodCliArt.TextChanged
+        If txtCodCliArt.Text <> "" Then
+            Busca_Cliente()
+        Else
+            txtNomcliArt.Text = ""
+        End If
+    End Sub
+
 End Class

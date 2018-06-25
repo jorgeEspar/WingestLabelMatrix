@@ -62,15 +62,18 @@ Partial Class FrmInicio
         Me.FECPEDDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CANPEDDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CODLOTDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.FECCAD = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ESTADODataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.FECCAD = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.EtiqNew = New System.Windows.Forms.DataGridViewImageColumn()
         Me.EtiqOld = New System.Windows.Forms.DataGridViewImageColumn()
         Me.Imprimir = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.BindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
         Me.Articulos_pedido = New WingestLabelMatrix.articulos_pedido()
-        Me.btnBuscadorPedido = New System.Windows.Forms.Button()
         Me.GroupConexWingestSQLSERVER = New System.Windows.Forms.GroupBox()
+        Me.img_etiqueta_vieja = New System.Windows.Forms.PictureBox()
+        Me.img_etiqueta_access = New System.Windows.Forms.PictureBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
         Me.txtCodCliArt = New System.Windows.Forms.TextBox()
         Me.btnBuscadorCliente = New System.Windows.Forms.Button()
         Me.txtNomcliArt = New System.Windows.Forms.TextBox()
@@ -92,18 +95,15 @@ Partial Class FrmInicio
         Me.ddlCanal = New System.Windows.Forms.ComboBox()
         Me.txtCodcli = New System.Windows.Forms.TextBox()
         Me.chkConectadoAccess = New System.Windows.Forms.CheckBox()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.img_etiqueta_access = New System.Windows.Forms.PictureBox()
-        Me.img_etiqueta_vieja = New System.Windows.Forms.PictureBox()
+        Me.btnBuscadorPedido = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.DataGridPedido, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BindingSource1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Articulos_pedido, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupConexWingestSQLSERVER.SuspendLayout()
-        CType(Me.img_etiqueta_access, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.img_etiqueta_vieja, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.img_etiqueta_access, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -184,7 +184,7 @@ Partial Class FrmInicio
         '
         Me.ToolStripStatuslblVersion.Name = "ToolStripStatuslblVersion"
         Me.ToolStripStatuslblVersion.Size = New System.Drawing.Size(31, 17)
-        Me.ToolStripStatuslblVersion.Text = "1.0.0"
+        Me.ToolStripStatuslblVersion.Text = "1.2.0"
         '
         'chkConectadoWingest
         '
@@ -293,7 +293,7 @@ Partial Class FrmInicio
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DataGridPedido.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
-        Me.DataGridPedido.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.NUMPEDDataGridViewTextBoxColumn, Me.CODCLIDataGridViewTextBoxColumn, Me.DESCLIDataGridViewTextBoxColumn, Me.CODARTDataGridViewTextBoxColumn, Me.DESMODDataGridViewTextBoxColumn, Me.FECPEDDataGridViewTextBoxColumn, Me.CANPEDDataGridViewTextBoxColumn, Me.CODLOTDataGridViewTextBoxColumn, Me.FECCAD, Me.ESTADODataGridViewTextBoxColumn, Me.EtiqNew, Me.EtiqOld, Me.Imprimir})
+        Me.DataGridPedido.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.NUMPEDDataGridViewTextBoxColumn, Me.CODCLIDataGridViewTextBoxColumn, Me.DESCLIDataGridViewTextBoxColumn, Me.CODARTDataGridViewTextBoxColumn, Me.DESMODDataGridViewTextBoxColumn, Me.FECPEDDataGridViewTextBoxColumn, Me.CANPEDDataGridViewTextBoxColumn, Me.CODLOTDataGridViewTextBoxColumn, Me.ESTADODataGridViewTextBoxColumn, Me.FECCAD, Me.EtiqNew, Me.EtiqOld, Me.Imprimir})
         Me.DataGridPedido.DataSource = Me.BindingSource1
         DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
@@ -402,13 +402,6 @@ Partial Class FrmInicio
         Me.CODLOTDataGridViewTextBoxColumn.ReadOnly = True
         Me.CODLOTDataGridViewTextBoxColumn.Width = 80
         '
-        'FECCAD
-        '
-        Me.FECCAD.DataPropertyName = "FECCAD"
-        Me.FECCAD.HeaderText = "F. CADUCIDAD"
-        Me.FECCAD.Name = "FECCAD"
-        Me.FECCAD.ReadOnly = True
-        '
         'ESTADODataGridViewTextBoxColumn
         '
         Me.ESTADODataGridViewTextBoxColumn.DataPropertyName = "ESTADO"
@@ -416,6 +409,13 @@ Partial Class FrmInicio
         Me.ESTADODataGridViewTextBoxColumn.MinimumWidth = 100
         Me.ESTADODataGridViewTextBoxColumn.Name = "ESTADODataGridViewTextBoxColumn"
         Me.ESTADODataGridViewTextBoxColumn.ReadOnly = True
+        '
+        'FECCAD
+        '
+        Me.FECCAD.DataPropertyName = "FECCAD"
+        Me.FECCAD.HeaderText = "F. CADUCIDAD"
+        Me.FECCAD.Name = "FECCAD"
+        Me.FECCAD.ReadOnly = True
         '
         'EtiqNew
         '
@@ -457,17 +457,6 @@ Partial Class FrmInicio
         Me.Articulos_pedido.DataSetName = "articulos_pedido"
         Me.Articulos_pedido.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
-        'btnBuscadorPedido
-        '
-        Me.btnBuscadorPedido.FlatAppearance.BorderSize = 0
-        Me.btnBuscadorPedido.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnBuscadorPedido.Image = Global.WingestLabelMatrix.My.Resources.Resources.btnsearch
-        Me.btnBuscadorPedido.Location = New System.Drawing.Point(120, 48)
-        Me.btnBuscadorPedido.Name = "btnBuscadorPedido"
-        Me.btnBuscadorPedido.Size = New System.Drawing.Size(26, 29)
-        Me.btnBuscadorPedido.TabIndex = 2
-        Me.btnBuscadorPedido.UseVisualStyleBackColor = True
-        '
         'GroupConexWingestSQLSERVER
         '
         Me.GroupConexWingestSQLSERVER.Controls.Add(Me.img_etiqueta_vieja)
@@ -496,6 +485,46 @@ Partial Class FrmInicio
         Me.GroupConexWingestSQLSERVER.TabIndex = 35
         Me.GroupConexWingestSQLSERVER.TabStop = False
         Me.GroupConexWingestSQLSERVER.Text = "Impresión etiqueta de artículo"
+        '
+        'img_etiqueta_vieja
+        '
+        Me.img_etiqueta_vieja.Image = Global.WingestLabelMatrix.My.Resources.Resources.bola_roja
+        Me.img_etiqueta_vieja.Location = New System.Drawing.Point(927, 14)
+        Me.img_etiqueta_vieja.Name = "img_etiqueta_vieja"
+        Me.img_etiqueta_vieja.Size = New System.Drawing.Size(16, 16)
+        Me.img_etiqueta_vieja.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
+        Me.img_etiqueta_vieja.TabIndex = 78
+        Me.img_etiqueta_vieja.TabStop = False
+        Me.img_etiqueta_vieja.Visible = False
+        '
+        'img_etiqueta_access
+        '
+        Me.img_etiqueta_access.Image = Global.WingestLabelMatrix.My.Resources.Resources.bola_roja
+        Me.img_etiqueta_access.Location = New System.Drawing.Point(804, 14)
+        Me.img_etiqueta_access.Name = "img_etiqueta_access"
+        Me.img_etiqueta_access.Size = New System.Drawing.Size(16, 16)
+        Me.img_etiqueta_access.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
+        Me.img_etiqueta_access.TabIndex = 77
+        Me.img_etiqueta_access.TabStop = False
+        Me.img_etiqueta_access.Visible = False
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(838, 17)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(89, 13)
+        Me.Label12.TabIndex = 76
+        Me.Label12.Text = "Etiqueta vieja:"
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(703, 17)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(103, 13)
+        Me.Label11.TabIndex = 75
+        Me.Label11.Text = "Etiqueta Access:"
         '
         'txtCodCliArt
         '
@@ -699,45 +728,16 @@ Partial Class FrmInicio
         Me.chkConectadoAccess.UseVisualStyleBackColor = True
         Me.chkConectadoAccess.Visible = False
         '
-        'Label11
+        'btnBuscadorPedido
         '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(703, 17)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(103, 13)
-        Me.Label11.TabIndex = 75
-        Me.Label11.Text = "Etiqueta Access:"
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(838, 17)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(89, 13)
-        Me.Label12.TabIndex = 76
-        Me.Label12.Text = "Etiqueta vieja:"
-        '
-        'img_etiqueta_access
-        '
-        Me.img_etiqueta_access.Image = Global.WingestLabelMatrix.My.Resources.Resources.bola_roja
-        Me.img_etiqueta_access.Location = New System.Drawing.Point(804, 14)
-        Me.img_etiqueta_access.Name = "img_etiqueta_access"
-        Me.img_etiqueta_access.Size = New System.Drawing.Size(16, 16)
-        Me.img_etiqueta_access.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
-        Me.img_etiqueta_access.TabIndex = 77
-        Me.img_etiqueta_access.TabStop = False
-        Me.img_etiqueta_access.Visible = False
-        '
-        'img_etiqueta_vieja
-        '
-        Me.img_etiqueta_vieja.Image = Global.WingestLabelMatrix.My.Resources.Resources.bola_roja
-        Me.img_etiqueta_vieja.Location = New System.Drawing.Point(927, 14)
-        Me.img_etiqueta_vieja.Name = "img_etiqueta_vieja"
-        Me.img_etiqueta_vieja.Size = New System.Drawing.Size(16, 16)
-        Me.img_etiqueta_vieja.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
-        Me.img_etiqueta_vieja.TabIndex = 78
-        Me.img_etiqueta_vieja.TabStop = False
-        Me.img_etiqueta_vieja.Visible = False
+        Me.btnBuscadorPedido.FlatAppearance.BorderSize = 0
+        Me.btnBuscadorPedido.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnBuscadorPedido.Image = Global.WingestLabelMatrix.My.Resources.Resources.btnsearch
+        Me.btnBuscadorPedido.Location = New System.Drawing.Point(120, 48)
+        Me.btnBuscadorPedido.Name = "btnBuscadorPedido"
+        Me.btnBuscadorPedido.Size = New System.Drawing.Size(26, 29)
+        Me.btnBuscadorPedido.TabIndex = 2
+        Me.btnBuscadorPedido.UseVisualStyleBackColor = True
         '
         'FrmInicio
         '
@@ -778,8 +778,8 @@ Partial Class FrmInicio
         CType(Me.Articulos_pedido, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupConexWingestSQLSERVER.ResumeLayout(False)
         Me.GroupConexWingestSQLSERVER.PerformLayout()
-        CType(Me.img_etiqueta_access, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.img_etiqueta_vieja, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.img_etiqueta_access, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

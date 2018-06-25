@@ -94,22 +94,33 @@ Public Class ObjComunes
         Dim sqlorderby As String = ""
         Try
             'ejemplo de select de albfacca para cuando no hay  registros en pedclica
-            'can=2; eje=16; NUNFAC=464 -> can=1; eje=16; NUNFAC=3853 -> can=1; eje=16; NUNFAC=3855 -> can=2; eje=16; NUNFAC=461
+            'can=2; eje=16; NUNFAC=585 NUNFAC=464 -> can=1; eje=16; NUNFAC=3853 -> can=1; eje=16; NUNFAC=3855 -> can=2; eje=16; NUNFAC=461
 
-            sql = "Select afa.CAN, afa.ejefac, convert(date,afa.FECFAC) As FECPED, afa.NUMFAC As NUMPED, afa.CODCLI, clientes.NOM as DESCLI, articulo.CODART as CODART, articulo.DES AS DESMOD, "
-            sql += "albfacli.CODLOT, cast(convert(date,albfacli.FECCAD) as varchar(10)) as FECCAD, convert(int,albfacli.CANPED) as CANPED "
-            sql += "FROM(albfacca afa INNER JOIN clientes On afa.CODCLI = clientes.CODCLI) "
-            sql += "INNER Join(articulo INNER JOIN albfacli On articulo.CODART = albfacli.CODART) ON (afa.NUMFAC = albfacli.NUMFAC) And (afa.EJEFAC = albfacli.EJEFAC) And (afa.CAN = albfacli.CAN) "
-            sqlgroup = "GROUP BY afa.CAN, afa.EJEFAC, afa.FECFAC, afa.NUMFAC, afa.CODCLI, clientes.NOM, articulo.CODART, articulo.DES, albfacli.CODLOT, albfacli.FECCAD, albfacli.CANPED "
-            sqlhaving += "HAVING afa.CAN ='" & can & "' AND afa.ejefac=" & eje.ToString() & " AND afa.NUMFAC=" & numped.ToString() & " "
-            sqlwhere += "WHERE Left(articulo.CODARTREF, 3) ='" & FrmInicio.config.AppSettings.Settings.Item("CodArticulosLabelMatrix").Value & "' " ' 48.
+            'sql = "Select afa.CAN, afa.ejefac, convert(date,afa.FECFAC) As FECPED, afa.NUMFAC As NUMPED, afa.CODCLI, clientes.NOM as DESCLI, articulo.CODART as CODART, articulo.DES AS DESMOD, "
+            'sql += "albfacli.CODLOT, cast(convert(date,albfacli.FECCAD) as varchar(10)) as FECCAD, convert(int,albfacli.CANPED) as CANPED "
+            'sql += "FROM(albfacca afa INNER JOIN clientes On afa.CODCLI = clientes.CODCLI) "
+            'sql += "INNER Join(articulo INNER JOIN albfacli On articulo.CODART = albfacli.CODART) ON (afa.NUMFAC = albfacli.NUMFAC) And (afa.EJEFAC = albfacli.EJEFAC) And (afa.CAN = albfacli.CAN) "
+            'sqlgroup = "GROUP BY afa.CAN, afa.EJEFAC, afa.FECFAC, afa.NUMFAC, afa.CODCLI, clientes.NOM, articulo.CODART, articulo.DES, albfacli.CODLOT, albfacli.FECCAD, albfacli.CANPED "
+            'sqlhaving = "HAVING afa.CAN ='" & can & "' AND afa.ejefac=" & eje.ToString() & " AND afa.NUMFAC=" & numped.ToString() & " "
+            'sqlwhere = "WHERE Left(articulo.CODARTREF, 3) ='" & FrmInicio.config.AppSettings.Settings.Item("CodArticulosLabelMatrix").Value & "' " ' 48.
+            'sqlorderby = "ORDER BY CODART"
+
+            sql = "Select ped.CAN, ped.eje as ejefac, convert(date,ped.FECPED) As FECPED, ped.NUMPED, ped.CODCLI, clientes.NOM as DESCLI, articulo.CODART as CODART, articulo.DES AS DESMOD, "
+            sql += "pedclili.CODLOT, cast(convert(date,pedclili.FECCAD) as varchar(10)) as FECCAD, convert(int,pedclili.CANPED) as CANPED "
+            sql += "FROM(pedclica ped INNER JOIN clientes On ped.CODCLI = clientes.CODCLI) "
+            sql += "INNER Join(articulo INNER JOIN pedclili On articulo.CODART = pedclili.CODART) ON (ped.NUMPED = pedclili.NUMPED) And (ped.EJE = pedclili.EJE) And (ped.CAN = pedclili.CAN) "
+            sqlgroup = "GROUP BY ped.CAN, ped.EJE, ped.FECPED, ped.NUMPED, ped.CODCLI, clientes.NOM, articulo.CODART, articulo.DES, pedclili.CODLOT, pedclili.FECCAD, pedclili.CANPED "
+            sqlhaving = "HAVING ped.CAN ='" & can & "' AND ped.eje=" & eje.ToString() & " AND ped.NUMPED=" & numped.ToString() & " "
+            sqlwhere = "WHERE Left(articulo.CODARTREF, 3) ='" & FrmInicio.config.AppSettings.Settings.Item("CodArticulosLabelMatrix").Value & "' " ' 48.
             sqlorderby = "ORDER BY CODART"
 
             'sql = "SELECT pedclica.CAN, pedclica.eje, pedclica.FECPED, pedclica.CODCLI, clientes.NOM, articulo.CODARTREF, articulo.DES as ARTICULO "
             'sql += "FROM (pedclica INNER JOIN clientes ON pedclica.CODCLI = clientes.CODCLI) " & vbCrLf
             'sql += "INNER JOIN (articulo INNER JOIN pedclili ON articulo.CODART = pedclili.CODART) ON (pedclica.NUMFAC = peclili.NUMFAC) AND (pedclica.EJEFAC = pedclili.EJEFAC) AND (pedclica.CAN = peclili.CAN) " & vbCrLf
             'sqlgroup = "GROUP BY pedclica.CAN, pedclica.eje, albfacca.serfac, pedclica.CODCLI, clientes.NOM, articulo.CODARTREF, DES " & vbCrLf
-            'sqlwhere += "WHERE pedclica.can ='" & can & "' AND pedclica.EJE=" & eje.ToString() & " AND pedclica.NUMPED=" & numped.ToString()
+            'sqlwhere = "WHERE pedclica.can ='" & can & "' AND pedclica.EJE=" & eje.ToString() & " AND pedclica.NUMPED=" & numped.ToString()
+            'sqlwhere += " AND Left(articulo.CODARTREF, 3) ='" & FrmInicio.config.AppSettings.Settings.Item("CodArticulosLabelMatrix").Value & "' " ' 48.
+            'sqlorderby = "ORDER BY CODARTREF"
 
             'sqlorderby = " ORDER BY articulo.CODARTREF"
             Dim sqlquery As String = sql & sqlwhere & sqlgroup & sqlhaving & sqlorderby
@@ -181,7 +192,6 @@ Public Class ObjComunes
     End Function
     Public Function Cuantos_BuscadorClientes(ByVal codcli As String, ByVal nom As String, ByVal nomcom As String, Optional ByVal soloClientesBiolema As Boolean = False) As Long
         Dim cuantos As Long = 0
-        Dim dt As DataTable
         Dim sql As String = "", sqlwhere As String = ""
         'sql = "select codcli, nom, cif, codpos,cal1,email,tel1,tel2,pagweb,fax,nomcom,percon,obs,forpag,pripag,numpag,entpag,"
         sql = "select codcli, nom, nomcom FROM clientes "
@@ -214,42 +224,179 @@ Public Class ObjComunes
         Return cuantos
     End Function
 
-    Public Function GetFamilias() As DataTable
-        Dim dt As DataTable = New DataTable
-        Dim sql As String = ""
+    Public Function BuscadorArticulos(ByVal codArt As String, ByVal nom As String, ByVal pagina As Integer, ByVal PageSize As Integer, ByVal Colum_OrderBy As Integer, Optional ByVal soloArticulosBiolema As Boolean = False) As DataTable
+        Dim dt As DataTable
+        Dim sql As String = "", sqlwhere As String = ""
+        'sql = "select codcli, nom, cif, codpos,cal1,email,tel1,tel2,pagweb,fax,nomcom,percon,obs,forpag,pripag,numpag,entpag,"
+        sql = "select codart, des FROM articulo "
+        sqlwhere += "WHERE codart<>'' "
+        If codArt <> "" Then
+            If sqlwhere <> "" Then sqlwhere += " AND "
+            sqlwhere += "codart=" & codArt
+        End If
+        If nom <> "" Then
+            If sqlwhere <> "" Then sqlwhere += " AND "
+            sqlwhere += "des like '%" & nom & "%'"
+        End If
 
-        Try
-            sql = "SELECT codfam, des FROM familia order by des "
+        'If soloArticulosBiolema = True Then
+        '    If sqlwhere <> "" Then sqlwhere += " AND "
+        '    sqlwhere += "tipcli = 2"
+        'End If
+        'sqlwhere += " RowNumber BETWEEN(2 -1) 100 + 1 AND(((2 -1) 100 + 1) + 100) - 1"
 
-            dt = objSQLServerWingest.Consulta(sql)
-        Catch ex As Exception
-            Throw ex
-        End Try
+        sql += sqlwhere
+        Select Case Colum_OrderBy
+            Case 0
+                sql += " ORDER BY codart "
+            Case 1
+                sql += " ORDER BY des "
+            Case Else
+                sql += " ORDER BY des "
+        End Select
+
+        FrmInicio.ToolStripStatuslbl.Text = "Seleccionando Artículos" : Application.DoEvents()
+        dt = objSQLServerWingest.Consulta_Pager(sql, pagina, PageSize)
+
+        Return dt
+    End Function
+    Public Function Cuantos_BuscadorArticulos(ByVal codart As String, ByVal des As String, Optional ByVal soloArticulosBiolema As Boolean = False) As Long
+        Dim cuantos As Long = 0
+        Dim sql As String = "", sqlwhere As String = ""
+        'sql = "select codcli, nom, cif, codpos,cal1,email,tel1,tel2,pagweb,fax,nomcom,percon,obs,forpag,pripag,numpag,entpag,"
+        sql = "select codart, des FROM articulo "
+        sqlwhere += "WHERE codart<>'' "
+        If codart <> "" Then
+            If sqlwhere <> "" Then sqlwhere += " AND "
+            sqlwhere += "codart like '%" & codart & "%'"
+        End If
+        If des <> "" Then
+            If sqlwhere <> "" Then sqlwhere += " AND "
+            sqlwhere += "des like '%" & des & "%'"
+        End If
+        'If soloArticulosBiolema = True Then
+        '    If sqlwhere <> "" Then sqlwhere += " AND "
+        '    sqlwhere += "tipcli = 2"
+        'End If
+
+        'sqlwhere += " RowNumber BETWEEN(2 -1) 100 + 1 AND(((2 -1) 100 + 1) + 100) - 1"
+
+        sql += sqlwhere
+        sql += " ORDER BY des "
+
+        FrmInicio.ToolStripStatuslbl.Text = "Seleccionando Artículos" : Application.DoEvents()
+        cuantos = objSQLServerWingest.Cuantos_Consulta(sql)
+
+        Return cuantos
+    End Function
+
+    Public Function BuscadorPedidos(ByVal NumPedido As String, ByVal DesdeFechaPedido As String, ByVal HastaFechaPedido As String, ByVal codcli As String, ByVal nom As String, ByVal nomcom As String, ByVal CANAL As String, ByVal EJE As String, ByVal pagina As Integer, ByVal PageSize As Integer) As DataTable
+        Dim cuantos As Long = 0
+        Dim dt As DataTable
+        Dim sql As String = "", sqlwhere As String = ""
+        'sql = "select codcli, nom, cif, codpos,cal1,email,tel1,tel2,pagweb,fax,nomcom,percon,obs,forpag,pripag,numpag,entpag,"
+        sql = "select p.can, p.EJE, p.NUMPED, CAST(p.FECPED AS DATE) as fecped, p.codcli, RTRIM(clientes.NOM) AS NOM, RTRIM(clientes.NOMCOM) AS NOMCOM FROM pedclica p INNER JOIN clientes ON p.codcli=clientes.codcli "
+        sqlwhere += "WHERE p.codcli>0 "
+        If CANAL <> "" Then
+            If sqlwhere <> "" Then sqlwhere += " AND "
+            sqlwhere += "p.can='" & CANAL & "'"
+        End If
+        If EJE <> "" Then
+            If sqlwhere <> "" Then sqlwhere += " AND "
+            sqlwhere += "p.EJE = " & EJE
+        End If
+        If NumPedido <> "" Then
+            If sqlwhere <> "" Then sqlwhere += " AND "
+            sqlwhere += "p.NUMPED = " & NumPedido
+        End If
+
+        If DesdeFechaPedido <> "" Then
+            If sqlwhere <> "" Then sqlwhere += " AND "
+            Dim fechaPedidoDesde As String = Format(CDate(DesdeFechaPedido), FrmInicio.FormatoFechaSQLServer)
+            sqlwhere += " p.fecped >= '" & fechaPedidoDesde & "'" ' '01/01/2016' - Convert(datetime, '" & fechaFacturaDesde & " 00:00:00')" ' ojo la fecha en formato dd-MM-yyyy
+        End If
+        If HastaFechaPedido <> "" Then
+            If sqlwhere <> "" Then sqlwhere += " AND "
+            Dim fechaPedidoHasta As String = Format(CDate(HastaFechaPedido), FrmInicio.FormatoFechaSQLServer)
+            sqlwhere += " p.fecped <= '" & fechaPedidoHasta & "'" ' '01/01/2016' - Convert(datetime, '" & fechaFacturaDesde & " 00:00:00')" ' ojo la fecha en formato dd-MM-yyyy
+        End If
+
+        If codcli <> "" Then
+            If sqlwhere <> "" Then sqlwhere += " AND "
+            sqlwhere += "p.codcli=" & codcli
+        End If
+        If nom <> "" Then
+            If sqlwhere <> "" Then sqlwhere += " AND "
+            sqlwhere += "nom like '%" & nom & "%'"
+        End If
+        If nomcom <> "" Then
+            If sqlwhere <> "" Then sqlwhere += " AND "
+            sqlwhere += "nomcom like '%" & nomcom & "%'"
+        End If
+
+        'sqlwhere += " RowNumber BETWEEN(2 -1) 100 + 1 AND(((2 -1) 100 + 1) + 100) - 1"
+
+        sql += sqlwhere
+        sql += " ORDER BY FECPED DESC, NOM, NUMPED "
+
+        FrmInicio.ToolStripStatuslbl.Text = "Seleccionando Pedidos" : Application.DoEvents()
+        dt = objSQLServerWingest.Consulta_Pager(sql, pagina, PageSize)
 
         Return dt
     End Function
 
-    Public Function Selecciona_Series_Desde(ByVal canal As String, ByVal ejercicio As String) As DataTable
-        Dim dt As DataTable = New DataTable
-        Dim sql As String
-        If canal <> "" And ejercicio <> "" Then
-            If ejercicio.Length > 2 Then ejercicio = Right(ejercicio, 2)
-            sql = "SELECT DISTINCT CODSER as Codigo, DES as Descripcion FROM serfac WHERE CAN='" & canal & "' AND EJE=" & ejercicio & " ORDER BY DES"
-            dt = objSQLServerWingest.Consulta(sql)
+    Public Function Cuantos_BuscadorPedidos(ByVal NumPedido As String, ByVal DesdeFechaPedido As String, ByVal HastaFechaPedido As String, ByVal codcli As String, ByVal nom As String, ByVal nomcom As String, ByVal CANAL As String, ByVal EJE As String) As Long
+        Dim cuantos As Long = 0
+        Dim sql As String = "", sqlwhere As String = ""
+        'sql = "select codcli, nom, cif, codpos,cal1,email,tel1,tel2,pagweb,fax,nomcom,percon,obs,forpag,pripag,numpag,entpag,"
+        sql = "select p.can, p.EJE, p.NUMPED, CAST(p.FECPED AS DATE) as fecped, p.codcli, clientes.NOM, clientes.NOMCOM from pedclica p INNER JOIN clientes ON p.codcli=clientes.codcli "
+        sqlwhere += "WHERE p.codcli>0 "
+        If CANAL <> "" Then
+            If sqlwhere <> "" Then sqlwhere += " AND "
+            sqlwhere += "p.can='" & CANAL & "'"
         End If
-        Return dt
-    End Function
-    Public Function Selecciona_Series_Hasta(ByVal canal As String, ByVal ejercicio As String) As DataTable
-        Dim dt As DataTable = New DataTable
-        Dim sql As String = ""
+        If EJE <> "" Then
+            If sqlwhere <> "" Then sqlwhere += " AND "
+            sqlwhere += "p.EJE = " & EJE
+        End If
+        If NumPedido <> "" Then
+            If sqlwhere <> "" Then sqlwhere += " AND "
+            sqlwhere += "p.NUMPED = " & NumPedido
+        End If
 
-        If canal <> "" And ejercicio <> "" Then
-            If ejercicio.Length > 2 Then ejercicio = Right(ejercicio, 2)
-            ''sql = "SELECT DISTINCT CODSER as Codigo, DES as Descripcion FROM serfac WHERE CAN='" & FrmFiltros_Informe_1.ddlCanal_Hasta.SelectedValue & "' AND EJE=" & Right(FrmFiltros_Informe_1.tbxEjercicio_Hasta.Text, 2) & " ORDER BY DES"
-            sql = "SELECT DISTINCT CODSER as Codigo, DES as Descripcion FROM serfac WHERE CAN='" & canal & "' AND EJE=" & Right(ejercicio, 2) & " ORDER BY DES"
-            dt = objSQLServerWingest.Consulta(sql)
+        If DesdeFechaPedido <> "" Then
+            If sqlwhere <> "" Then sqlwhere += " AND "
+            Dim fechaPedidoDesde As String = Format(CDate(DesdeFechaPedido), FrmInicio.FormatoFechaSQLServer)
+            sqlwhere += " p.fecped >= '" & fechaPedidoDesde & "'" ' '01/01/2016' - Convert(datetime, '" & fechaFacturaDesde & " 00:00:00')" ' ojo la fecha en formato dd-MM-yyyy
         End If
-        Return dt
+        If HastaFechaPedido <> "" Then
+            If sqlwhere <> "" Then sqlwhere += " AND "
+            Dim fechaPedidoHasta As String = Format(CDate(HastaFechaPedido), FrmInicio.FormatoFechaSQLServer)
+            sqlwhere += " p.fecped <= '" & fechaPedidoHasta & "'" ' '01/01/2016' - Convert(datetime, '" & fechaFacturaDesde & " 00:00:00')" ' ojo la fecha en formato dd-MM-yyyy
+        End If
+
+        If codcli <> "" Then
+            If sqlwhere <> "" Then sqlwhere += " AND "
+            sqlwhere += "p.codcli=" & codcli
+        End If
+        If nom <> "" Then
+            If sqlwhere <> "" Then sqlwhere += " AND "
+            sqlwhere += "nom like '%" & nom & "%'"
+        End If
+        If nomcom <> "" Then
+            If sqlwhere <> "" Then sqlwhere += " AND "
+            sqlwhere += "nomcom like '%" & nomcom & "%'"
+        End If
+
+        'sqlwhere += " RowNumber BETWEEN(2 -1) 100 + 1 AND(((2 -1) 100 + 1) + 100) - 1"
+
+        sql += sqlwhere
+        sql += " ORDER BY FECPED DESC, NOM, NUMPED "
+
+        FrmInicio.ToolStripStatuslbl.Text = "Seleccionando Pedidos" : Application.DoEvents()
+        cuantos = objSQLServerWingest.Cuantos_Consulta(sql)
+
+        Return cuantos
     End Function
 
     Public Function Selecciona_Canales() As DataTable
