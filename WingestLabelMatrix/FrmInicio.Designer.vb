@@ -184,7 +184,7 @@ Partial Class FrmInicio
         '
         Me.ToolStripStatuslblVersion.Name = "ToolStripStatuslblVersion"
         Me.ToolStripStatuslblVersion.Size = New System.Drawing.Size(31, 17)
-        Me.ToolStripStatuslblVersion.Text = "1.2.0"
+        Me.ToolStripStatuslblVersion.Text = "2.1.1"
         '
         'chkConectadoWingest
         '

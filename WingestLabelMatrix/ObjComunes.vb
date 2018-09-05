@@ -74,6 +74,9 @@ Public Class ObjComunes
         sql += num_etiquetas_print & ",0)"
         Try
             msg = objAccessWingest.Alta_ReturnNewID(sql, "")
+            If msg <> "" And msg <> "0" Then
+                msg = "Error: " & msg
+            End If
         Catch ex As Exception
             msg = "Error: " & ex.Message
         End Try
@@ -106,13 +109,14 @@ Public Class ObjComunes
             'sqlorderby = "ORDER BY CODART"
 
             sql = "Select ped.CAN, ped.eje as ejefac, convert(date,ped.FECPED) As FECPED, ped.NUMPED, ped.CODCLI, clientes.NOM as DESCLI, articulo.CODART as CODART, articulo.DES AS DESMOD, "
-            sql += "pedclili.CODLOT, cast(convert(date,pedclili.FECCAD) as varchar(10)) as FECCAD, convert(int,pedclili.CANPED) as CANPED "
+            sql += "pedclili.CODLOT, cast(convert(date,pedclili.FECCAD) as varchar(10)) as FECCAD, convert(int,pedclili.CANPED) as CANPED, pedclili.NUMLIN "
             sql += "FROM(pedclica ped INNER JOIN clientes On ped.CODCLI = clientes.CODCLI) "
             sql += "INNER Join(articulo INNER JOIN pedclili On articulo.CODART = pedclili.CODART) ON (ped.NUMPED = pedclili.NUMPED) And (ped.EJE = pedclili.EJE) And (ped.CAN = pedclili.CAN) "
-            sqlgroup = "GROUP BY ped.CAN, ped.EJE, ped.FECPED, ped.NUMPED, ped.CODCLI, clientes.NOM, articulo.CODART, articulo.DES, pedclili.CODLOT, pedclili.FECCAD, pedclili.CANPED "
+            sqlgroup = "GROUP BY ped.CAN, ped.EJE, ped.FECPED, ped.NUMPED, ped.CODCLI, clientes.NOM, articulo.CODART, articulo.DES, pedclili.CODLOT, pedclili.FECCAD, pedclili.CANPED,pedclili.NUMLIN "
             sqlhaving = "HAVING ped.CAN ='" & can & "' AND ped.eje=" & eje.ToString() & " AND ped.NUMPED=" & numped.ToString() & " "
             sqlwhere = "WHERE Left(articulo.CODARTREF, 3) ='" & FrmInicio.config.AppSettings.Settings.Item("CodArticulosLabelMatrix").Value & "' " ' 48.
-            sqlorderby = "ORDER BY CODART"
+            'sqlwhere = "WHERE Left(pedclili.CODART, 3) ='100' " '& FrmInicio.config.AppSettings.Settings.Item("CodArticulosLabelMatrix").Value & "' " ' 48.
+            sqlorderby = "ORDER BY pedclili.NUMLIN"
 
             'sql = "SELECT pedclica.CAN, pedclica.eje, pedclica.FECPED, pedclica.CODCLI, clientes.NOM, articulo.CODARTREF, articulo.DES as ARTICULO "
             'sql += "FROM (pedclica INNER JOIN clientes ON pedclica.CODCLI = clientes.CODCLI) " & vbCrLf

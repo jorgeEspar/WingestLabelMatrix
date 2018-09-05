@@ -70,5 +70,8 @@
     <Setting Name="CodArticulosLabelMatrix" Type="System.String" Scope="User">
       <Value Profile="(Default)">48.</Value>
     </Setting>
+    <Setting Name="IPImpresora" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.1.44</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

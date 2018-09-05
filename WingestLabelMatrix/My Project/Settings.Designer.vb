@@ -304,6 +304,18 @@ Namespace My
                 Me("CodArticulosLabelMatrix") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("192.168.1.44")>  _
+        Public Property IPImpresora() As String
+            Get
+                Return CType(Me("IPImpresora"),String)
+            End Get
+            Set
+                Me("IPImpresora") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

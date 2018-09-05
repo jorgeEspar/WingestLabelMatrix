@@ -68,13 +68,20 @@ Partial Class FrmConfiguracion
         Me.ddlMostrarVentanaMSDos = New System.Windows.Forms.ComboBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.txtTiempoEsperaEntreEtiquetas = New System.Windows.Forms.TextBox()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.lblFormatoImpr = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.ddlTipoConexImpresora = New System.Windows.Forms.ComboBox()
+        Me.txtIPImpresora = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
         Me.GroupConexWingestSQLSERVER.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnAceptar
         '
-        Me.btnAceptar.Location = New System.Drawing.Point(410, 476)
+        Me.btnAceptar.Location = New System.Drawing.Point(400, 478)
         Me.btnAceptar.Name = "btnAceptar"
         Me.btnAceptar.Size = New System.Drawing.Size(72, 25)
         Me.btnAceptar.TabIndex = 4
@@ -84,7 +91,7 @@ Partial Class FrmConfiguracion
         'btnCancelar
         '
         Me.btnCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancelar.Location = New System.Drawing.Point(488, 476)
+        Me.btnCancelar.Location = New System.Drawing.Point(478, 478)
         Me.btnCancelar.Name = "btnCancelar"
         Me.btnCancelar.Size = New System.Drawing.Size(72, 25)
         Me.btnCancelar.TabIndex = 3
@@ -203,7 +210,7 @@ Partial Class FrmConfiguracion
         'ddlFormatoFechaSQLServer
         '
         Me.ddlFormatoFechaSQLServer.FormattingEnabled = True
-        Me.ddlFormatoFechaSQLServer.Location = New System.Drawing.Point(158, 399)
+        Me.ddlFormatoFechaSQLServer.Location = New System.Drawing.Point(26, 419)
         Me.ddlFormatoFechaSQLServer.Name = "ddlFormatoFechaSQLServer"
         Me.ddlFormatoFechaSQLServer.Size = New System.Drawing.Size(119, 21)
         Me.ddlFormatoFechaSQLServer.TabIndex = 52
@@ -219,7 +226,7 @@ Partial Class FrmConfiguracion
         '
         'txtFormatoImportes_Excel
         '
-        Me.txtFormatoImportes_Excel.Location = New System.Drawing.Point(158, 426)
+        Me.txtFormatoImportes_Excel.Location = New System.Drawing.Point(197, 419)
         Me.txtFormatoImportes_Excel.Name = "txtFormatoImportes_Excel"
         Me.txtFormatoImportes_Excel.Size = New System.Drawing.Size(119, 20)
         Me.txtFormatoImportes_Excel.TabIndex = 54
@@ -229,7 +236,7 @@ Partial Class FrmConfiguracion
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(23, 433)
+        Me.Label1.Location = New System.Drawing.Point(194, 403)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(117, 13)
         Me.Label1.TabIndex = 53
@@ -237,7 +244,7 @@ Partial Class FrmConfiguracion
         '
         'txtFormatoCantidades_Excel
         '
-        Me.txtFormatoCantidades_Excel.Location = New System.Drawing.Point(430, 426)
+        Me.txtFormatoCantidades_Excel.Location = New System.Drawing.Point(363, 419)
         Me.txtFormatoCantidades_Excel.Name = "txtFormatoCantidades_Excel"
         Me.txtFormatoCantidades_Excel.Size = New System.Drawing.Size(119, 20)
         Me.txtFormatoCantidades_Excel.TabIndex = 56
@@ -247,7 +254,7 @@ Partial Class FrmConfiguracion
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(295, 433)
+        Me.Label2.Location = New System.Drawing.Point(359, 403)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(130, 13)
         Me.Label2.TabIndex = 55
@@ -470,13 +477,73 @@ Partial Class FrmConfiguracion
         Me.txtTiempoEsperaEntreEtiquetas.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTiempoEsperaEntreEtiquetas.WordWrap = False
         '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.lblFormatoImpr)
+        Me.GroupBox2.Controls.Add(Me.Label13)
+        Me.GroupBox2.Controls.Add(Me.ddlTipoConexImpresora)
+        Me.GroupBox2.Controls.Add(Me.txtIPImpresora)
+        Me.GroupBox2.Controls.Add(Me.Label11)
+        Me.GroupBox2.Location = New System.Drawing.Point(21, 512)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(535, 91)
+        Me.GroupBox2.TabIndex = 74
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Conexión Impresora"
+        '
+        'lblFormatoImpr
+        '
+        Me.lblFormatoImpr.AutoSize = True
+        Me.lblFormatoImpr.Location = New System.Drawing.Point(10, 68)
+        Me.lblFormatoImpr.Name = "lblFormatoImpr"
+        Me.lblFormatoImpr.Size = New System.Drawing.Size(48, 13)
+        Me.lblFormatoImpr.TabIndex = 78
+        Me.lblFormatoImpr.Text = "Formato:"
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.Location = New System.Drawing.Point(7, 23)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(145, 13)
+        Me.Label13.TabIndex = 77
+        Me.Label13.Text = "Tipo conexión impresora"
+        '
+        'ddlTipoConexImpresora
+        '
+        Me.ddlTipoConexImpresora.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ddlTipoConexImpresora.FormattingEnabled = True
+        Me.ddlTipoConexImpresora.Location = New System.Drawing.Point(10, 39)
+        Me.ddlTipoConexImpresora.Name = "ddlTipoConexImpresora"
+        Me.ddlTipoConexImpresora.Size = New System.Drawing.Size(162, 21)
+        Me.ddlTipoConexImpresora.TabIndex = 76
+        '
+        'txtIPImpresora
+        '
+        Me.txtIPImpresora.Location = New System.Drawing.Point(178, 39)
+        Me.txtIPImpresora.Name = "txtIPImpresora"
+        Me.txtIPImpresora.Size = New System.Drawing.Size(346, 20)
+        Me.txtIPImpresora.TabIndex = 75
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.Location = New System.Drawing.Point(175, 23)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(118, 13)
+        Me.Label11.TabIndex = 74
+        Me.Label11.Text = "Impresora etiquetas"
+        '
         'FrmConfiguracion
         '
         Me.AcceptButton = Me.btnAceptar
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnCancelar
-        Me.ClientSize = New System.Drawing.Size(568, 515)
+        Me.ClientSize = New System.Drawing.Size(568, 617)
+        Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.txtTiempoEsperaEntreEtiquetas)
         Me.Controls.Add(Me.Label10)
@@ -507,6 +574,8 @@ Partial Class FrmConfiguracion
         Me.GroupConexWingestSQLSERVER.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -556,4 +625,10 @@ Partial Class FrmConfiguracion
     Friend WithEvents ddlMostrarVentanaMSDos As ComboBox
     Friend WithEvents Label12 As Label
     Friend WithEvents txtTiempoEsperaEntreEtiquetas As TextBox
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents Label13 As Label
+    Friend WithEvents ddlTipoConexImpresora As ComboBox
+    Friend WithEvents txtIPImpresora As TextBox
+    Friend WithEvents Label11 As Label
+    Friend WithEvents lblFormatoImpr As Label
 End Class

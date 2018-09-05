@@ -310,4 +310,25 @@ Public Class Buscador_Clientes
     Private Sub NumericUpDown1_ValueChanged1(sender As Object, e As EventArgs) Handles NumericUpDown1.ValueChanged
         Buscar(Integer.Parse(NumericUpDown1.Value), Colum_OrderBy)
     End Sub
+
+
+    Private Sub tbxCodCli_KeyUp(sender As Object, e As KeyEventArgs) Handles tbxCodCli.KeyUp
+        If e.KeyCode = Keys.Enter Then
+            e.Handled = True
+            Buscar(Integer.Parse(NumericUpDown1.Value), Colum_OrderBy)
+        End If
+    End Sub
+    Private Sub tbxNomCli_KeyUp(sender As Object, e As KeyEventArgs) Handles tbxNomCli.KeyUp
+        If e.KeyCode = Keys.Enter Then
+            e.Handled = True
+            Buscar(Integer.Parse(NumericUpDown1.Value), Colum_OrderBy)
+        End If
+    End Sub
+    Private Sub tbxNomcomCli_KeyUp(sender As Object, e As KeyEventArgs) Handles tbxNomcomCli.KeyUp
+        If e.KeyCode = Keys.Enter Then
+            e.Handled = True
+            Buscar(Integer.Parse(NumericUpDown1.Value), Colum_OrderBy)
+        End If
+    End Sub
+
 End Class

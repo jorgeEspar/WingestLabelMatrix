@@ -81,7 +81,34 @@ Public Class FrmConfiguracion
                 ddlMostrarVentanaMSDos.SelectedIndex = 0
             End If
 
+            Dim xitem7 As New List(Of rmItem)
+            xitem7.Add(New rmItem("IP", "OI")) ' rmItem(Descripción, valor)
+            xitem7.Add(New rmItem("\\Servidor\Nombre Impresora", "ON"))
+            xitem7.Add(New rmItem("Nombre Impresora local + IP", "X"))
+            ddlTipoConexImpresora.DisplayMember = "ItemName"
+            ddlTipoConexImpresora.ValueMember = "ItemValue"
+            ddlTipoConexImpresora.DataSource = xitem7
+            ddlTipoConexImpresora.SelectedIndex = 0
+
             txtTiempoEsperaEntreEtiquetas.Text = FrmInicio.config.AppSettings.Settings.Item("TiempoEsperaEntreEtiquetas").Value
+
+            Dim impresora As String
+            Dim tipoimpresora As String
+            impresora = FrmInicio.config.AppSettings.Settings.Item("IPImpresora").Value
+            txtIPImpresora.Text = impresora
+            If Trim(impresora) <> "" Then
+                If impresora.Length >= 4 Then
+                    tipoimpresora = impresora.Substring(0, 3)
+                    Select Case tipoimpresora
+                        Case "/OP"
+                            ddlTipoConexImpresora.SelectedIndex = 0
+                        Case "/ON"
+                            ddlTipoConexImpresora.SelectedIndex = 1
+                        Case "/X="
+                            ddlTipoConexImpresora.SelectedIndex = 2
+                    End Select
+                End If
+            End If
 
             EstadoComunicaciones()
 
@@ -163,6 +190,40 @@ Public Class FrmConfiguracion
         End If
         If txtTiempoEsperaEntreEtiquetas.Text = "" Then txtTiempoEsperaEntreEtiquetas.Text = "0"
 
+        Dim impresora As String = ""
+        Dim tipoimpresora As String = ""
+        Dim msgimpresora As String = ""
+        Dim IPImpresora As String = ""
+
+        impresora = txtIPImpresora.Text.ToUpper()
+        If Trim(impresora) <> "" Then
+            If impresora.Length >= 4 Then
+                tipoimpresora = impresora.Substring(0, 3)
+                Select Case tipoimpresora
+                    Case "/OP"
+                        IPImpresora = IPImpresora.Replace(" ", "")
+                        ddlTipoConexImpresora.SelectedIndex = 0
+                    Case "/ON"
+                        ddlTipoConexImpresora.SelectedIndex = 1
+                    Case "/X="
+                        ddlTipoConexImpresora.SelectedIndex = 2
+                    Case Else
+                        msgimpresora = "El formato para indicar la impresora no es correcto"
+                End Select
+            End If
+        End If
+
+
+        IPImpresora = impresora
+
+        If IPImpresora = "" Then
+            MsgBox("No ha indicado la IP de la impresora de etiquetas. Si no indica la IP, tendrá que seleccionarla como impresora por defecto antes de imprimir etiquetas.", MsgBoxStyle.Exclamation, "Error")
+        Else
+            If msgimpresora <> "" Then
+                MsgBox(msgimpresora, MsgBoxStyle.Exclamation, "Error")
+            End If
+        End If
+
         If MessageBox.Show("¿Seguro desea guardar la Configuración?", "Guardar Configuración", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then
             Try
                 'BBDD SQL-Server Wingest
@@ -189,6 +250,8 @@ Public Class FrmConfiguracion
 
                 FrmInicio.config.AppSettings.Settings.Item("MostrarVentanaMSDos").Value = ddlMostrarVentanaMSDos.SelectedValue
                 FrmInicio.config.AppSettings.Settings.Item("TiempoEsperaEntreEtiquetas").Value = txtTiempoEsperaEntreEtiquetas.Text
+
+                FrmInicio.config.AppSettings.Settings.Item("IPImpresora").Value = IPImpresora
 
                 FrmInicio.FormatoFechaSQLServer = ddlFormatoFechaSQLServer.SelectedValue
                 ''FrmInicio.config.AppSettings.Settings.Item("Save()
@@ -424,6 +487,20 @@ Public Class FrmConfiguracion
             ' Swallow this invalid key and beep
             e.Handled = True
         End If
+    End Sub
+
+    Private Sub ddlTipoConexImpresora_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlTipoConexImpresora.SelectedIndexChanged
+        Select Case ddlTipoConexImpresora.SelectedIndex
+            Case 0
+                lblFormatoImpr.Text = "Formato: /OI=<IP de la impresora>"
+            Case 1
+                lblFormatoImpr.Text = "Formato: /ON=\\Nombre del servidor\nombre de la impresora>"
+            Case 2
+                lblFormatoImpr.Text = "Formato: /X=<Nombre impresora> /OI=<IP de la impresora>"
+            Case Else
+                lblFormatoImpr.Text = "Formato: "
+        End Select
+
     End Sub
 End Class
 
